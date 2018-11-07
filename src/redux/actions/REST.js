@@ -1,17 +1,13 @@
 import to from 'to-case';
 import { toast } from 'react-toastify';
-import { post as postRequest, put as putRequest, fetch, remove as deleteRequest } from './Request';
+import { fetch }  from './Request';
 
 import {
   ACTION_GET,
-  ACTION_LIST,
-  ACTION_POST,
-  ACTION_PUT,
-  ACTION_DELETE,
   ACTION_STARTED,
   ACTION_COMPLETED,
   ACTION_FAILED,
-} from './../constants/Common';
+} from '../types/Common';
 
 const __actionName = (group, method, action, step) => {
   return to.snake(group + ' ' + method + ' ' + (action || '') + ' ' + step).toUpperCase();
@@ -49,23 +45,10 @@ const __dispatch = (group, action, method, params, dispatch, id, path_extras) =>
   let request;
   const PATH = group + (action ? '/' + action : '');
 
+  // eslint-disable-next-line default-case
   switch (method) {
     case ACTION_GET:
-    case 'CUSTOM_GET':
       request = fetch(PATH, id, params, [], path_extras);
-      break;
-    case ACTION_LIST:
-    case 'CUSTOM_LIST':
-      request = fetch(PATH, null, params, [], path_extras);
-      break;
-    case ACTION_POST:
-      request = postRequest(PATH, params, path_extras);
-      break;
-    case ACTION_PUT:
-      request = putRequest(PATH, id, params);
-      break;
-    case ACTION_DELETE:
-      request = deleteRequest(PATH, id, params);
       break;
   }
 
@@ -79,7 +62,7 @@ const __dispatch = (group, action, method, params, dispatch, id, path_extras) =>
       },
       error => {
         if (error.status === 401) {
-          dispatch(logout());
+
         } else {
           if (error.response && error.response.body && error.response.body.message) {
             toast.error(error.response.body.message);
@@ -96,25 +79,4 @@ const __dispatch = (group, action, method, params, dispatch, id, path_extras) =>
 
 export const get = (group, action, id, params) => dispatch => {
   return __dispatch(group, action, ACTION_GET, params, dispatch, id);
-};
-
-export const list = (group, action, params) => dispatch => {
-  return __dispatch(group, action, ACTION_LIST, params, dispatch);
-};
-
-export const post = (group, action, params) => dispatch => {
-  return __dispatch(group, action, ACTION_POST, params, dispatch);
-};
-
-export const put = (group, action, id, params) => dispatch => {
-  return __dispatch(group, action, ACTION_PUT, params, dispatch, id);
-};
-
-export const remove = (group, action, id, params) => dispatch => {
-  return __dispatch(group, action, ACTION_DELETE, params, dispatch, id);
-};
-
-export const custom = (method, group, action, id, params, path_extras) => dispatch => {
-  const ACTION_CUSTOM = 'CUSTOM_' + method.toUpperCase();
-  return __dispatch(group, action, ACTION_CUSTOM, params, dispatch, id);
 };

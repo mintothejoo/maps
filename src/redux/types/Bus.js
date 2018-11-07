@@ -1,0 +1,3 @@
+export const BUS_GET_COMPLETED = 'BUS_GET_COMPLETED';
+export const BUS_GET_STARTED = 'BUS_GET_STARTED';
+

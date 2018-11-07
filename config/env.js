@@ -13,7 +13,6 @@ if (!NODE_ENV) {
     'The NODE_ENV environment variable is required but was not specified.'
   );
 }
-
 // https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use
 var dotenvFiles = [
   `${paths.dotenv}.${NODE_ENV}.local`,
@@ -77,6 +76,9 @@ function getClientEnvironment(publicUrl) {
         // This should only be used as an escape hatch. Normally you would put
         // images into the `src` and `import` them in code to get their paths.
         PUBLIC_URL: publicUrl,
+        TRANSLINK_API: process.env.TRANSLINK_API,
+        BASE_URL: process.env.BASE_URL,
+        MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin
@@ -86,7 +88,6 @@ function getClientEnvironment(publicUrl) {
       return env;
     }, {}),
   };
-
   return { raw, stringified };
 }
 
