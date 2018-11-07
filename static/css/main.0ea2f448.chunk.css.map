@@ -1,0 +1,1 @@
+{"version":3,"sources":["/Users/minjoocha/Desktop/personal/maps/src/styles/Main.scss"],"names":[],"mappings":"AAAA,eACE,aAAa,AACb,YAAY,AACZ,WAAY,CACb","file":"main.0ea2f448.chunk.css","sourcesContent":[".map-container {\n  height: 800px;\n  width: 800px;\n  margin: auto;\n}"]}
