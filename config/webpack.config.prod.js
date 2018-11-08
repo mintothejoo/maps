@@ -99,6 +99,10 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
 // It compiles slowly and is focused on producing a fast and minimal bundle.
 // The development configuration is different and lives in a separate file.
 module.exports = {
+  devServer: {
+    historyApiFallback: true,
+    contentBase: path.resolve(__dirname, '/config/build'),
+  },
   mode: 'production',
   // Don't attempt to continue if there are any errors.
   bail: true,
@@ -108,6 +112,7 @@ module.exports = {
   // In production, we only want to load the app code.
   entry: [paths.appIndexJs],
   output: {
+    
     // The build folder.
     path: paths.appBuild,
     // Generated JS file names (with nested folders).

@@ -3,7 +3,6 @@ import request from 'superagent';
 const DEFAULT_TIMEOUT = 5000;
 const DEFAULT_DEADLINE = 60000;
 const BASE_URL = process.env.BASE_URL;
-console.log(process.env);
 
 export function fetch(path, params) {
   // params.apikey = TRANSLINK_API;
