@@ -8,7 +8,7 @@ class Root extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
           <Fragment>
             <Route exact path="/" component={Home} />
           </Fragment>
